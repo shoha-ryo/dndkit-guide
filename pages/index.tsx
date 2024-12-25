@@ -41,8 +41,32 @@ type DNDType = {
   }[];
 };
 
+
+const containerObjects = [{
+	id: 'container-1',
+	title: 'test1',
+	items: [{
+		id: 'item-1-1',
+		title: 'item-1-1',
+	},{
+		id: 'item-1-2',
+		title: 'item-1-2',
+	}]
+},{
+	id: 'container-2',
+	title: 'test2',
+	items: [{
+		id: 'item-2-1',
+		title: 'item-2-1',
+	},{
+		id: 'item-2-2',
+		title: 'item-2-2',
+	}]
+}];
+
+
 export default function Home() {
-  const [containers, setContainers] = useState<DNDType[]>([]);
+  const [containers, setContainers] = useState<DNDType[]>(containerObjects);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [currentContainerId, setCurrentContainerId] =
     useState<UniqueIdentifier>();
@@ -365,7 +389,7 @@ export default function Home() {
           <Input
             type="text"
             placeholder="Item Title"
-            name="itemname"
+            name="itemame"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
           />
@@ -378,6 +402,7 @@ export default function Home() {
           Add Container
         </Button>
       </div>
+
       <div className="mt-10">
         <div className="grid grid-cols-3 gap-6">
           <DndContext
@@ -408,6 +433,7 @@ export default function Home() {
                 </Container>
               ))}
             </SortableContext>
+
             <DragOverlay adjustScale={false}>
               {/* Drag Overlay For item Item */}
               {activeId && activeId.toString().includes('item') && (
@@ -425,6 +451,12 @@ export default function Home() {
           </DndContext>
         </div>
       </div>
+
+			<div className='infoContainer'>
+				★information★
+				<p>コンテナ：</p>
+				<p>アクティブID：{activeId}</p>
+			</div>
     </div>
   );
 }
